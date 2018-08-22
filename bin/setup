@@ -1,0 +1,10 @@
+#!/bin/bash
+
+hook=".git/hooks/pre-commit"
+if [[ ! -f "$hook" ]]; then
+  touch $hook
+  chmod +x $hook
+  echo "#!/bin/sh" > $hook
+fi
+echo 'export BUNDLE_GEMFILE=
+bundle exec rubocop lib/ spec/' >> $hook

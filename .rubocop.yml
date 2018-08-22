@@ -1,0 +1,107 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - "db/schema.rb"
+
+Layout/AlignHash:
+  # Allow multiple hash styles as last argument method call
+  EnforcedLastArgumentHashStyle: always_ignore
+
+Layout/AlignParameters:
+  # Two spaces are enough intentation for method definitions
+  EnforcedStyle: with_fixed_indentation
+
+Layout/DotPosition:
+  # Allow pasting in console
+  EnforcedStyle: trailing
+
+Layout/EmptyLinesAroundBlockBody:
+  # allow empty line after "def ..." when it's multiline
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  # Two spaces are enough indentation for method calls
+  EnforcedStyle: indented
+
+Layout/MultilineOperationIndentation:
+  # Two spaces are enough indentation for assignment operations
+  EnforcedStyle: indented
+
+Layout/SpaceInsideHashLiteralBraces:
+  # To distinguish against blocks
+  EnforcedStyle: no_space
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Style/BracesAroundHashParameters:
+  # Two hash parameters should have the same style.
+  EnforcedStyle: context_dependent
+
+Style/Documentation:
+  Enabled: false
+
+Style/FormatStringToken:
+  # Here we want to be flexible
+  Enabled: false
+
+Style/ModuleFunction:
+  # module_function style does not make private methods accessible on module
+  EnforcedStyle: extend_self
+
+Style/RedundantReturn:
+  # Omitting return is error prone when adding code after
+  Enabled: false
+
+Style/RegexpLiteral:
+  AllowInnerSlashes: true
+
+Style/StringLiterals:
+  # Single quoting is no longer faster and style change takes time
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  # Single quoting is no longer faster and style change takes time
+  EnforcedStyle: double_quotes
+
+Metrics/BlockLength:
+  Max: 20
+  ExcludedMethods:
+    - context
+    - describe
+    - it
+    - shared_examples
+    - shared_examples_for
+    - namespace
+    - draw
+    - factory
+    - FactoryGirl.define
+    - RSpec.configure
+    - describe_run
+  Exclude:
+    - spec*/**/*_spec.rb
+    - spec*/support/**/v2_*.rb
+    - spec*/support/**/*_helpers.rb
+
+Metrics/ClassLength:
+  Max: 500
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 25
+
+Metrics/ModuleLength:
+  Max: 500
+
+# Temporary disabled cops until codebase is cleaned up more
+#
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
