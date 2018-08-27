@@ -99,17 +99,17 @@ module MetaPlan
       case scope
       when :this
         next if result[:content].nil?
-        integrate!(plan[key], result) { yield(plan[key], result[:content]) }
+        integrate!(plan[key], result, result) { yield(plan[key], result[:content]) }
       when :first
         content_ref = Marshal.load(Marshal.dump(result[:content]&.[](ref)))
         partition!(plan, key, content_ref, step_result) do |next_plan, content|
           next {content: nil} if content.nil?
-          integrate!(next_plan, result) { yield(next_plan, content) }
+          integrate!(next_plan, result, result) { yield(next_plan, content) }
         end
       when :each
         next if result[:content]&.[](ref).nil?
         result[:content][ref].map do |c|
-          integrate!(plan[key], c) do
+          integrate!(plan[key], result, c) do
             next {content: plan[key][:default]} if plan[key][:default_if]&.call(c)
             next yield(plan[key], c)
           end
@@ -119,9 +119,9 @@ module MetaPlan
     return result
   end
 
-  def integrate!(plan, target)
+  def integrate!(plan, result, target)
     source = yield
-    @merge_down_step&.call(target, source)
+    @merge_down_step&.call(result, target, source)
     attach = plan[:attach]
     source = source[:content]
     source = source&.[](attach[:from].to_sym) if attach.key?(:from)

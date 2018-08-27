@@ -125,8 +125,9 @@ describe "MetaPlan" do
 
       it "makes result and step result available inside the proc" do
         MetaPlan.config(
-          merge_down_step: proc do |result, step_result|
+          merge_down_step: proc do |result, content, step_result|
             assert_equal({content: {}}, result)
+            assert_equal({content: {}}, content)
             assert_equal({content: {}}, step_result)
           end,
           run_step: proc { {content: {}} }
